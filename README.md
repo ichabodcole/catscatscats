@@ -1,4 +1,1 @@
-catcatscats
-===========
-
-PCS - Sinatra Test
+An application for viewing... cats.
