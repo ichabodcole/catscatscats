@@ -64,7 +64,7 @@ get '/' do
     redirect '/index.html'
 end
 
-get '/notes' do
+get '/notes/?' do
   notes = Note.all.to_a
 
   if notes.nil?
@@ -102,7 +102,7 @@ end
 #
 # Returns
 #  2
-put '/note' do
+put '/note/?' do
   # Request.body.read is destructive, make sure you don't use a puts here.
   data = JSON.parse(request.body.read)
 

@@ -3,21 +3,53 @@ function Note(){
     this.id = null;
     this.subject = null;
     this.content = null;
-    // this.created_at
-    //this.updated_at
 }
+Note.prototype.updateIdSelection = function(){
+    $.ajax({
+        url: "/notes",
+        dataType: 'json',
+        type: 'GET',
+        success: function(data){
+            $("#txt-noteid").html("");
+            $(data).each(function(index){
+                var curId = data[index]["id"];
+                $("#txt-noteid").append('<option value="' + curId + '">'+curId+'</option>');
+            });
+        }
+    });
+};
 
-
+Note.prototype.fetchAll = function(){
+    $.ajax({
+        url: "/notes",
+        dataType: 'json',
+        type: 'GET',
+        success: function(data){
+            var str = "<br>All Row Data: =======================><br>";
+            $(data).each(function(index){
+                var subject = data[index]["subject"];
+                var content = data[index]["content"];
+                str += "id:" + data[index]["id"] + ", subject: " + subject + ", content:"+ content + "<br>";
+            });
+            $("#content").append(str);
+        }
+    });
+};
 //
 Note.prototype.fetch = function(id){
+    var _this = this;
     $.ajax({
         url: this.baseUrl + id,
         dataType: 'json',
         type: 'GET',
         success: function(data){
-            this.subject = data['subject'];
-            this.content = data['content'];
+            _this.subject = data['subject'];
+            _this.content = data['content'];
             console.log(this.subject);
+            $("#content").html("id:" + data["id"] + ", " +_this.subject+", "+_this.content);
+            note.fetchAll();
+            $("#txt-subject").val(_this.subject);
+            $("#txt-content").val(_this.content);
         }
     });
 };
@@ -27,29 +59,86 @@ Note.prototype.create = function(){
     $.ajax({
         url: this.baseUrl,
         dataType: 'json',
-        type: 'PUT',
-        data: {
-            subject: this.subject,
-            content: this.content
-        },
+        type: "PUT",
+        data: JSON.stringify({subject: this.subject, content: this.content}),
         success: function(data){
             _this.subject = data['subject'];
             _this.content = data['content'];
             console.log(_this.subject);
+            $("#content").html(data['subject']+", "+data['content']);
+            refresh();
+        },
+        error: function(e){
+            console.log(e.responseText);
         }
     });
 };
 
-Note.prototype.update = function(){
-
+Note.prototype.update = function(id){
+    var _this = this;
+    $.ajax({
+        url: this.baseUrl + id,
+        dataType: 'json',
+        type: 'POST',
+        data:JSON.stringify({subject: this.subject, content: this.content}),
+        success: function(data){
+            _this.subject = data['subject'];
+            _this.content = data['content'];
+            console.log(_this.subject);
+            $("#content").html(data['id']+": "+data['subject']+", "+data['content']);
+            note.fetchAll();
+        },
+        error: function(e){
+            console.log(e.responseText);
+        }
+    });
 };
 
-Note.prototype.remove = function(){
-
+Note.prototype.remove = function(id){
+    $.ajax({
+        url: this.baseUrl + id,
+        dataType: 'json',
+        type: 'DELETE',
+        success: function(data){
+            $("#content").html("Content with id: " + id + " deleted.");
+            refresh();
+        },
+        error: function(e){
+            console.log(e.responseText);
+        }
+    });
 };
 
 note = new Note();
-note.subject = "AJAX";
-note.content = "Is magic!";
-note.create();
 
+$("button").addClass("btn btn-primary");
+
+$("#btn-create").click(function(){
+    note.subject = $("#txt-subject").val();
+    note.content = $("#txt-content").val();
+    note.create();
+    note.updateIdSelection();
+});
+
+$("#btn-update").click(function(){
+    id = $("#txt-noteid").val();
+    note.subject = $("#txt-subject").val();
+    note.content = $("#txt-content").val();
+    note.update(id);
+});
+
+$("#btn-delete").click(function(){
+    id = $("#txt-noteid").val();
+    note.remove(id);
+});
+
+$("#txt-noteid").change(function(){
+    id = $("#txt-noteid").val();
+    note.fetch(id);
+});
+
+function refresh(){
+    note.updateIdSelection();
+    note.fetchAll();
+}
+refresh();
