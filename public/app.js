@@ -25,7 +25,7 @@ Note.prototype.fetchAll = function(){
         dataType: 'json',
         type: 'GET',
         success: function(data){
-            var str = "<br>All Row Data: =======================><br>";
+            var str = "All Row Data: =======================><br>";
             $(data).each(function(index){
                 var subject = data[index]["subject"];
                 var content = data[index]["content"];
@@ -46,7 +46,7 @@ Note.prototype.fetch = function(id){
             _this.subject = data['subject'];
             _this.content = data['content'];
             console.log(this.subject);
-            $("#content").html("id:" + data["id"] + ", " +_this.subject+", "+_this.content);
+            $("#content").html("<div class='alert alert-info'><strong>GET</strong> id:" + data["id"] + ", " +_this.subject+", "+_this.content+"</div>");
             note.fetchAll();
             $("#txt-subject").val(_this.subject);
             $("#txt-content").val(_this.content);
@@ -65,7 +65,7 @@ Note.prototype.create = function(){
             _this.subject = data['subject'];
             _this.content = data['content'];
             console.log(_this.subject);
-            $("#content").html(data['subject']+", "+data['content']);
+            $("#content").html("<div class='alert alert-success'><strong>PUT</strong> id:" + data["id"] + ", " + data['subject']+", "+data['content']+"</div>");
             refresh();
         },
         error: function(e){
@@ -85,7 +85,7 @@ Note.prototype.update = function(id){
             _this.subject = data['subject'];
             _this.content = data['content'];
             console.log(_this.subject);
-            $("#content").html(data['id']+": "+data['subject']+", "+data['content']);
+            $("#content").html("<div class='alert alert-success'><strong>POST</strong> id:" + data["id"] + ", " + data['subject']+", "+data['content']+"</div>");
             note.fetchAll();
         },
         error: function(e){
@@ -100,7 +100,7 @@ Note.prototype.remove = function(id){
         dataType: 'json',
         type: 'DELETE',
         success: function(data){
-            $("#content").html("Content with id: " + id + " deleted.");
+            $("#content").html("<div class='alert alert-warning'><strong>DELETE</strong> Content with id: " + id + " deleted.</div>");
             refresh();
         },
         error: function(e){
