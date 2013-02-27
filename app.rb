@@ -102,7 +102,7 @@ end
 #
 # Returns
 #  2
-put '/note' do
+put '/note/?' do
   # Request.body.read is destructive, make sure you don't use a puts here.
   data = JSON.parse(request.body.read)
 

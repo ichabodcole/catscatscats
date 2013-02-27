@@ -117,7 +117,6 @@ $("#btn-create").click(function(){
     note.subject = $("#txt-subject").val();
     note.content = $("#txt-content").val();
     note.create();
-    note.updateIdSelection();
 });
 
 $("#btn-update").click(function(){
