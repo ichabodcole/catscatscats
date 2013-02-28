@@ -24,8 +24,11 @@ function refresh(){
 }
 
 var notes = new Notes();
-var note1 = new Note({id: 1, subject: "Test subject 1", content: "Test content 1"});
-var note2 = new Note({id: 2, subject: "Test subject 2", content: "Test content 2"});
+var note1 = new Note();
+var note2 = new Note();
+
+note1.set({id: 1, subject: "Test subject 1", content: "Test content 1"});
+note2.set({id: 2, subject: "Test subject 2", content: "Test content 2"});
 
 notes.add(note1);
 notes.add(note2);
@@ -33,3 +36,5 @@ notes.add(note2);
 var noteList = notes.all();
 
 refresh();
+
+//Fill a note from the server.

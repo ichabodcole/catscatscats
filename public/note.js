@@ -1,11 +1,17 @@
-function Note(data){
+function Note(){
     console.log("New note");
-    this.id = data["id"];
-    this.subject = data["subject"];
-    this.content = data["content"];
+    this.id = "";
+    this.subject = "";
+    this.content = "";
     this.route = window.noteRoute.resource;
     // console.log(this);
 }
+
+Note.prototype.set = function(data){
+    this.id = data.id;
+    this.subject = data.subject;
+    this.content = data.content;
+};
 
 Note.prototype.fetch = function(){
     $.ajax({
