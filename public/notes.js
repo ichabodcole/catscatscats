@@ -1,49 +1,52 @@
-function Notes(){
-    console.log("new Notes");
+function NoteCollection(noteModel){
+    console.log("new NoteCollection");
     this.notes = [];
-    this.route = window.notesRoute.resource;
+    this.route = "/notes";
+    this.noteModel = noteModel;
 }
 
-Notes.prototype.add = function(note){
+NoteCollection.prototype.add = function(note){
     this.notes.push(note);
 };
 
-Notes.prototype.remove = function(id){
+NoteCollection.prototype.remove = function(id){
     this.notes.splice(id, 1);
 };
 
-Notes.prototype.save = function(){
+NoteCollection.prototype.save = function(){
 
 };
 
-Notes.prototype.all = function(){
+NoteCollection.prototype.all = function(){
     return this.notes;
 };
 
-Notes.prototype.get_by_id = function(id){
+NoteCollection.prototype.get_by_id = function(id){
     return this.notes[id];
 };
 
-Notes.prototype.log = function(){
+NoteCollection.prototype.log = function(){
     console.log(this);
 };
 
-Notes.prototype.fetch_server = function(){
-        $.ajax({
+NoteCollection.prototype.sync = function(){
+    var _ref = this;
+        return $.ajax({
         url: this.route,
         type: 'GET',
         dataType: 'json',
         success: function(data){
             console.log("GET");
-            console.log(this);
+            console.log(_ref);
             $(data).each(function(index, curNote){
                 var noteData = {
                                 id: curNote.id,
                                 subject: curNote.subject,
                                 content: curNote.content
                             };
-                var note = new Note(noteData);
-                this.add(note);
+                var note = new _ref.noteModel();
+                note.set(noteData);
+                _ref.add(note);
             });
         },
         error: function(response, status){
@@ -53,7 +56,7 @@ Notes.prototype.fetch_server = function(){
     });
 };
 
-Notes.prototype.fetch = function(id){
+NoteCollection.prototype.fetch = function(id){
     if(typeof(id) === "undefined" || typeof(id) !== "number"){
         return this.all();
     }else{

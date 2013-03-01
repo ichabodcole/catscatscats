@@ -1,26 +1,28 @@
 // Bootstrap all the buttons
-$("button").addClass("btn btn-primary");
+$(function(){
+    $("button").addClass("btn btn-primary");
 
-$("select").change(function(e){
+    $("select").change(function(e){
 
-});
+    });
 
-$("#btn-create").click(function(e){
-    var subject, content, data, note;
+    $("#btn-create").click(function(e){
+        var subject, content, data, note;
 
-    subject = $("#txt-subject").val();
-    content = $("#txt-content").val();
-    data = {subject: subject, content: content};
-    console.log(data);
+        subject = $("#txt-subject").val();
+        content = $("#txt-content").val();
+        data = {subject: subject, content: content};
+        console.log(data);
 
-    notes.add(new Note(data));
-});
+        notes.add(new Note(data));
+    });
 
-$("#my-button").click(function(e){
-    alert();
-});
+    $("#my-button").click(function(e){
+        alert();
+    });
 
-$("#my-button").on("change", function(){
-
+    $("#sel-noteid").change(function(e){
+        console.log($(this).val());
+    });
 });
 

@@ -1,9 +1,9 @@
 function Note(){
     console.log("New note");
-    this.id = "";
-    this.subject = "";
-    this.content = "";
-    this.route = window.noteRoute.resource;
+    this.id = null;
+    this.subject = null;
+    this.content = null;
+    this.route = "/note/";
     // console.log(this);
 }
 
@@ -13,20 +13,27 @@ Note.prototype.set = function(data){
     this.content = data.content;
 };
 
-Note.prototype.fetch = function(){
-    $.ajax({
-        url: this.route + this.id,
-        type: 'GET',
-        dataType: 'json',
-        success: function(data){
-            console.log("GET");
-            console.log(this);
-        },
-        error: function(response, status){
-            console.log(response.responseText);
-            console.log(status);
-        }
-    });
+Note.prototype.fetch = function(id){
+    if(typeof(id) !== 'undefined' && typeof(id) == 'number'){
+        this.id = id;
+    }
+    if(typeof(this.id) !== undefined && this.id !== null && typeof(id) == 'number'){
+        $.ajax({
+            url: this.route + this.id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+                console.log("GET");
+                console.log(this);
+            },
+            error: function(response, status){
+                console.log(response.responseText);
+                console.log(status);
+            }
+        });
+    }else{
+        console.log("note:fetch - id not defined, or not number");
+    }
 };
 
 Note.prototype.save = function(){
