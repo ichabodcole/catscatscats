@@ -13,7 +13,7 @@ Note.prototype.set = function(data){
     this.content = data.content;
 };
 
-Note.prototype.fetch = function(id){
+Note.prototype.sync = function(id){
     if(typeof(id) !== 'undefined' && typeof(id) == 'number'){
         this.id = id;
     }
