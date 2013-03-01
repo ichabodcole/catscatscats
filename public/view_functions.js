@@ -19,9 +19,10 @@ function buildNoteDisplayString(id, subject, content){
     return str;
 }
 
-function updateSelectInput(idArray){
+function updateSelectInput(notes){
+    var noteIds = pluck(notes, "id");
     var htmlStr = "";
-    $(idArray).each(function(index, id){
+    $(noteIds).each(function(index, id){
        htmlStr += "<option>" + id + "</option>";
     });
     $("#sel-noteid").append(htmlStr);
@@ -29,7 +30,7 @@ function updateSelectInput(idArray){
 
 function refresh(noteCollection){
     var notes = noteCollection.all();
-    var noteIds = pluck(notes, "id");
+
     displayAllNotes(notes);
-    updateSelectInput(noteIds);
+    updateSelectInput(notes);
 }

@@ -36,7 +36,7 @@ Note.prototype.sync = function(id){
     }
 };
 
-Note.prototype.save = function(){
+Note.prototype.update = function(){
     $.ajax({
         url: this.route + this.id,
         type: 'POST',

@@ -10,11 +10,8 @@ NoteCollection.prototype.add = function(note){
 };
 
 NoteCollection.prototype.remove = function(id){
-    this.notes.splice(id, 1);
-};
-
-NoteCollection.prototype.save = function(){
-
+    var note = this.notes.splice(id, 1);
+    note.destroy();
 };
 
 NoteCollection.prototype.all = function(){
@@ -25,13 +22,13 @@ NoteCollection.prototype.get_by_id = function(id){
     return this.notes[id];
 };
 
-NoteCollection.prototype.log = function(){
-    console.log(this);
+NoteCollection.prototype.sync = function(){
+    return this.fetch();
 };
 
-NoteCollection.prototype.sync = function(){
+NoteCollection.prototype.fetch = function(){
     var _ref = this;
-        return $.ajax({
+    return $.ajax({
         url: this.route,
         type: 'GET',
         dataType: 'json',
@@ -54,12 +51,4 @@ NoteCollection.prototype.sync = function(){
             console.log(status);
         }
     });
-};
-
-NoteCollection.prototype.fetch = function(id){
-    if(typeof(id) === "undefined" || typeof(id) !== "number"){
-        return this.all();
-    }else{
-        return this.get_by_id(id);
-    }
 };
