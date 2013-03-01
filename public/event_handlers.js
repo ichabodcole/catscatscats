@@ -17,10 +17,6 @@ $(function(){
         notes.add(new Note(data));
     });
 
-    $("#my-button").click(function(e){
-        alert();
-    });
-
     $("#sel-noteid").change(function(e){
         var id = $(this).val();
         var note = noteCollection.getById(id);

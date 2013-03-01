@@ -15,7 +15,9 @@ function displayAllNotes(noteCollection){
 }
 
 function buildNoteDisplayString(id, subject, content){
-    var str = "id:" + id + ", " + "subject: " + subject + ", " + "subject: " + content;
+    var str = "id: <em>\"" + id + "\"</em>, " +
+    "subject: <em>\"" + subject + "\"</em>, " +
+    "content: <em>\"" + content + "\"</em>";
     return str;
 }
 
