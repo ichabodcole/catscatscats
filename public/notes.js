@@ -18,8 +18,14 @@ NoteCollection.prototype.all = function(){
     return this.notes;
 };
 
-NoteCollection.prototype.get_by_id = function(id){
-    return this.notes[id];
+NoteCollection.prototype.getById = function(id){
+    var note;
+    $(this.notes).each(function(index, element){
+        if(Number(element.id) === Number(id)){
+            note = element;
+        }
+    });
+    return note;
 };
 
 NoteCollection.prototype.sync = function(){

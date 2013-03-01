@@ -1,5 +1,5 @@
 $(function(){
-    var noteCollection = new NoteCollection(Note);
+    noteCollection = new NoteCollection(Note);
     // var note1 = new Note();
     // var note2 = new Note();
 
@@ -12,6 +12,5 @@ $(function(){
     noteCollection.sync().done(function(){
         refresh(noteCollection);
     });
-
     //Fill a note from the server.
 });

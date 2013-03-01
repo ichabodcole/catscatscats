@@ -1,7 +1,7 @@
 function displayAllNotes(noteCollection){
     var str = "";
     // loop through the noteCollection.
-    str += "<div>All Row Data: =======================><br>";
+    str += "All Row Data: =======================><br>";
     $(noteCollection).each(function(index){
         var note = noteCollection[index];
         var noteCollectiontring = buildNoteDisplayString(note.id, note.subject, note.content);
@@ -9,8 +9,8 @@ function displayAllNotes(noteCollection){
         str += noteCollectiontring;
         str += "<br>";
     });
-    str += "</div>";
-    $("#content").append(str);
+    str += "";
+    $("#content .all-notes").html(str);
     console.log(noteCollection);
 }
 

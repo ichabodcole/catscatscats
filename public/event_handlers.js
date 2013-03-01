@@ -22,7 +22,10 @@ $(function(){
     });
 
     $("#sel-noteid").change(function(e){
-        console.log($(this).val());
+        var id = $(this).val();
+        var note = noteCollection.getById(id);
+        var noteStr = buildNoteDisplayString(note.id, note.subject, note.content);
+        $("#content .note-selection").addClass("alert alert-info").html(noteStr);
     });
 });
 
