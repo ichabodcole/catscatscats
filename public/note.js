@@ -1,18 +1,26 @@
-function Note(){
+function Note(data){
     console.log("New note");
     this.id = null;
     this.subject = null;
     this.content = null;
     this.route = "/note/";
-    // console.log(this);
+
+    this.parseData(data);
 }
 
-Note.prototype.set = function(data){
-    if(typeof(data.id) == 'number'){
-        this.id = data.id;
+Note.prototype.parseData = function(data){
+    var _ref = this;
+    if(typeof(data) !== 'undefined'){
+        $.each(data, function(key, element){
+            if(typeof(_ref[key]) !== 'undefined'){
+                _ref[key] = element;
+            }
+        });
     }
-    this.subject = data.subject;
-    this.content = data.content;
+};
+
+Note.prototype.set = function(data){
+    this.parseData(data);
 };
 
 Note.prototype.sync = function(id){

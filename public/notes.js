@@ -20,7 +20,7 @@ NoteCollection.prototype.all = function(){
 
 NoteCollection.prototype.getById = function(id){
     var note;
-    $(this.notes).each(function(index, element){
+    $.each(this.notes, function(index, element){
         if(Number(element.id) === Number(id)){
             note = element;
         }
@@ -41,14 +41,13 @@ NoteCollection.prototype.fetch = function(){
         success: function(data){
             console.log("GET");
             console.log(_ref);
-            $(data).each(function(index, curNote){
+            $.each(data, function(index, curNote){
                 var noteData = {
                                 id: curNote.id,
                                 subject: curNote.subject,
                                 content: curNote.content
                             };
-                var note = new _ref.noteModel();
-                note.set(noteData);
+                var note = new _ref.noteModel(noteData);
                 _ref.add(note);
             });
         },
