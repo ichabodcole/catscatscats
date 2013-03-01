@@ -8,16 +8,16 @@ function Note(){
 }
 
 Note.prototype.set = function(data){
-    this.id = data.id;
+    if(typeof(data.id) == 'number'){
+        this.id = data.id;
+    }
     this.subject = data.subject;
     this.content = data.content;
 };
 
 Note.prototype.sync = function(id){
-    if(typeof(id) !== 'undefined' && typeof(id) == 'number'){
+    if(typeof(id) == 'number'){
         this.id = id;
-    }
-    if(typeof(this.id) !== undefined && this.id !== null && typeof(id) == 'number'){
         $.ajax({
             url: this.route + this.id,
             type: 'GET',
