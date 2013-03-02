@@ -7,8 +7,8 @@ $(function(){
         var note = noteCollection.getById(id);
         var subject = $("#txt-subject").val();
         var content = $("#txt-content").val();
-        var data = {subject: subject, content: content};
-        note.set(data);
+        note.set({subject: subject, content: content});
+        buildAlertDisplay({id: note.id, subject: note.subject, content: note.content},"success");
     });
 
     $("#btn-create").click(function(e){
@@ -25,12 +25,8 @@ $(function(){
     $("#sel-noteid").change(function(e){
         var id = $(this).val();
         var note = noteCollection.getById(id);
-        var noteStr = buildNoteDisplayString(note.id, note.subject, note.content);
-        var subject = note.subject;
-        var content = note.content;
-        $("#txt-subject").val(subject);
-        $("#txt-content").val(content);
-        $("#content .note-selection").addClass("alert alert-info").html(noteStr);
+        updateTextInput(note.subject, note.content);
+        buildAlertDisplay({id: note.id, subject: note.subject, content: note.content},"info");
     });
 });
 

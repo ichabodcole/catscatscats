@@ -1,3 +1,8 @@
+// Todo create view class
+// function View(){
+
+// }
+
 function displayAllNotes(noteCollection){
     var str = "";
     // loop through the noteCollection.
@@ -10,7 +15,7 @@ function displayAllNotes(noteCollection){
         str += "<br>";
     });
     str += "";
-    $("#content .all-notes").html(str);
+    $("#content #all-notes").html(str);
     console.log(noteCollection);
 }
 
@@ -19,6 +24,11 @@ function buildNoteDisplayString(id, subject, content){
     "subject: <em>\"" + subject + "\"</em>, " +
     "content: <em>\"" + content + "\"</em>";
     return str;
+}
+
+function buildAlertDisplay(data, alertType){
+    var noteStr = buildNoteDisplayString(data.id, data.subject, data.content);
+    $("#content #note-selection").attr("class", "alert alert-" + alertType).html(noteStr);
 }
 
 function updateSelectInput(notes){
@@ -30,9 +40,13 @@ function updateSelectInput(notes){
     $("#sel-noteid").append(htmlStr);
 }
 
+function updateTextInput(subject, content){
+    $("#txt-subject").val(subject);
+    $("#txt-content").val(content);
+}
+
 function refresh(noteCollection){
     var notes = noteCollection.all();
-
     displayAllNotes(notes);
     updateSelectInput(notes);
 }
