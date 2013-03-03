@@ -1,11 +1,11 @@
 function Note(data){
     console.log("New note");
+    this.cid = null;
     this.id = null;
     this.subject = null;
     this.content = null;
     this.route = "/note/";
-
-    this.parseData(data);
+    this.set(data);
 }
 
 Note.prototype.parseData = function(data){
@@ -21,9 +21,14 @@ Note.prototype.parseData = function(data){
 
 Note.prototype.set = function(data){
     this.parseData(data);
+    return this;
 };
 
 Note.prototype.sync = function(id){
+    this.fetch(id);
+};
+
+Note.prototype.fetch = function(id){
     if(typeof(id) == 'number'){
         this.id = id;
         $.ajax({
@@ -45,20 +50,22 @@ Note.prototype.sync = function(id){
 };
 
 Note.prototype.update = function(){
-    $.ajax({
-        url: this.route + this.id,
-        type: 'POST',
-        dataType: 'json',
-        data: this.getJsonData(),
-        success: function(data){
-            console.log("POST");
-            console.log(this);
-        },
-        error: function(response, status){
-            console.log(responce.responseText);
-            console.log(status);
-        }
-    });
+    if(typeof(this.id) === 'number'){
+        $.ajax({
+            url: this.route + this.id,
+            type: 'POST',
+            dataType: 'json',
+            data: this.getJsonData(),
+            success: function(data){
+                console.log("POST");
+                console.log(this);
+            },
+            error: function(response, status){
+                console.log(responce.responseText);
+                console.log(status);
+            }
+        });
+    }
 };
 
 Note.prototype.destroy = function(){

@@ -4,10 +4,11 @@ $(function(){
 
     $("#btn-update").click(function(e){
         var id = Number($("#sel-noteid").val());
-        var note = noteCollection.getById(id);
         var subject = $("#txt-subject").val();
         var content = $("#txt-content").val();
+        var note = noteCollection.getById(id);
         note.set({subject: subject, content: content});
+        note.update();
         buildAlertDisplay({id: note.id, subject: note.subject, content: note.content},"success");
     });
 

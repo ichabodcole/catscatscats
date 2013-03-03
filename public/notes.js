@@ -1,11 +1,14 @@
 function NoteCollection(noteModel){
     console.log("new NoteCollection");
+    this.noteCount = 0;
     this.notes = [];
     this.route = "/notes";
     this.noteModel = noteModel;
 }
 
 NoteCollection.prototype.add = function(note){
+    this.noteCount++;
+    note.set({cid: this.noteCount});
     this.notes.push(note);
 };
 
