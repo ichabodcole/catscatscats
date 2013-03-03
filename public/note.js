@@ -49,6 +49,23 @@ Note.prototype.fetch = function(id){
     }
 };
 
+Note.prototype.create = function(){
+    $.ajax({
+        url: this.route,
+        type: 'PUT',
+        dataType: 'json',
+        data: this.getJsonData(),
+        success: function(data){
+            console.log("PUT");
+            console.log(this);
+        },
+        error: function(response, status){
+            console.log(responce.responseText);
+            console.log(status);
+        }
+    });
+};
+
 Note.prototype.update = function(){
     if(typeof(this.id) === 'number'){
         $.ajax({
