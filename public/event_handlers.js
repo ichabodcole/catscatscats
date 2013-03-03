@@ -13,14 +13,12 @@ $(function(){
     });
 
     $("#btn-create").click(function(e){
-        var subject, content, data, note;
-
-        subject = $("#txt-subject").val();
-        content = $("#txt-content").val();
-        data = {subject: subject, content: content};
-        console.log(data);
-
-        notes.add(new Note(data));
+        var subject = $("#txt-subject").val();
+        var content = $("#txt-content").val();
+        var data = {subject: subject, content: content};
+        var note = noteCollection.add(new Note(data));
+        buildAlertDisplay({cid: note.cid, id: note.id, subject: note.subject, content: note.content},"success");
+        refresh(noteCollection);
     });
 
     $("#sel-noteid").change(function(e){
