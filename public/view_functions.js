@@ -38,7 +38,7 @@ function updateSelectInput(notes){
     $(noteCids).each(function(index, cid){
        htmlStr += "<option>" + cid + "</option>";
     });
-    $("#sel-noteid").append(htmlStr);
+    $("#sel-noteid").html(htmlStr);
 }
 
 function updateTextInput(subject, content){
@@ -46,8 +46,8 @@ function updateTextInput(subject, content){
     $("#txt-content").val(content);
 }
 
-function refresh(noteCollection){
-    var notes = noteCollection.all();
+function refresh(collection){
+    var notes = collection.all();
     displayAllNotes(notes);
     updateSelectInput(notes);
 }
