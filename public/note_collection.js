@@ -13,9 +13,18 @@ NoteCollection.prototype.add = function(note){
     return note;
 };
 
-NoteCollection.prototype.remove = function(id){
-    var note = this.notes.splice(id, 1);
-    note.destroy();
+NoteCollection.prototype.remove = function(cid){
+    var note;
+    var noteIndex;
+    $.each(this.notes, function(index, element){
+        if(Number(element.cid) === Number(cid)){
+            noteIndex = index;
+            note = element;
+            return;
+        }
+    });
+    this.notes.splice(noteIndex, 1);
+    return note;
 };
 
 NoteCollection.prototype.all = function(){
