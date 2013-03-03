@@ -6,10 +6,10 @@ $(function(){
         var id = Number($("#sel-noteid").val());
         var subject = $("#txt-subject").val();
         var content = $("#txt-content").val();
-        var note = noteCollection.getById(id);
+        var note = noteCollection.getByCid(id);
         note.set({subject: subject, content: content});
         note.update();
-        buildAlertDisplay({id: note.id, subject: note.subject, content: note.content},"success");
+        buildAlertDisplay({cid: note.cid, id: note.id, subject: note.subject, content: note.content},"success");
     });
 
     $("#btn-create").click(function(e){
@@ -25,9 +25,9 @@ $(function(){
 
     $("#sel-noteid").change(function(e){
         var id = $(this).val();
-        var note = noteCollection.getById(id);
+        var note = noteCollection.getByCid(id);
         updateTextInput(note.subject, note.content);
-        buildAlertDisplay({id: note.id, subject: note.subject, content: note.content},"info");
+        buildAlertDisplay({cid: note.cid, id: note.id, subject: note.subject, content: note.content},"info");
     });
 });
 

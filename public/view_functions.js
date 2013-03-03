@@ -9,7 +9,7 @@ function displayAllNotes(noteCollection){
     str += "All Row Data: =======================><br>";
     $(noteCollection).each(function(index){
         var note = noteCollection[index];
-        var noteCollectiontring = buildNoteDisplayString(note.id, note.subject, note.content);
+        var noteCollectiontring = buildNoteDisplayString(note.cid, note.id, note.subject, note.content);
         str += index + 1 + " - ";
         str += noteCollectiontring;
         str += "<br>";
@@ -19,23 +19,24 @@ function displayAllNotes(noteCollection){
     console.log(noteCollection);
 }
 
-function buildNoteDisplayString(id, subject, content){
-    var str = "id: <em>\"" + id + "\"</em>, " +
+function buildNoteDisplayString(cid, id, subject, content){
+    var str = "cid: <em>\"" + cid + "\"</em>, " +
+    "id: <em>\"" + id + "\"</em>, " +
     "subject: <em>\"" + subject + "\"</em>, " +
     "content: <em>\"" + content + "\"</em>";
     return str;
 }
 
 function buildAlertDisplay(data, alertType){
-    var noteStr = buildNoteDisplayString(data.id, data.subject, data.content);
+    var noteStr = buildNoteDisplayString(data.cid, data.id, data.subject, data.content);
     $("#content #note-selection").attr("class", "alert alert-" + alertType).html(noteStr);
 }
 
 function updateSelectInput(notes){
-    var noteIds = pluck(notes, "id");
+    var noteCids = pluck(notes, "cid");
     var htmlStr = "";
-    $(noteIds).each(function(index, id){
-       htmlStr += "<option>" + id + "</option>";
+    $(noteCids).each(function(index, cid){
+       htmlStr += "<option>" + cid + "</option>";
     });
     $("#sel-noteid").append(htmlStr);
 }

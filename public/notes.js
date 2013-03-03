@@ -21,6 +21,16 @@ NoteCollection.prototype.all = function(){
     return this.notes;
 };
 
+NoteCollection.prototype.getByCid = function(cid){
+    var note;
+    $.each(this.notes, function(index, element){
+        if(Number(element.cid) === Number(cid)){
+            note = element;
+        }
+    });
+    return note;
+};
+
 NoteCollection.prototype.getById = function(id){
     var note;
     $.each(this.notes, function(index, element){
