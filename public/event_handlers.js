@@ -14,13 +14,23 @@ $(function(){
     });
 
     $("#btn-update").click(function(e){
-        var id = Number($("#sel-noteid").val());
+        var cid = Number($("#sel-noteid").val());
         var subject = $("#txt-subject").val();
         var content = $("#txt-content").val();
-        var note = noteCollection.getByCid(id);
+        var note = noteCollection.getByCid(cid);
         note.set({subject: subject, content: content});
         note.update().done(function(data){
-            buildAlertDisplay({cid: note.cid, id: data.id, subject: data.subject, content: data.content},"success");
+            buildAlertDisplay({cid: note.cid, id: note.id, subject: note.subject, content: note.content},"success");
+            refresh(noteCollection);
+        });
+    });
+
+    $("#btn-delete").click(function(){
+        var cid = Number($("#sel-noteid").val());
+        var note = noteCollection.remove(cid);
+        note.destroy().done(function(){
+            buildAlertDisplay({cid: note.cid, id: note.id, subject: note.subject, content: note.content},"warning");
+            refresh(noteCollection);
         });
     });
 
