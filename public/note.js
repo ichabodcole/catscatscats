@@ -31,7 +31,7 @@ Note.prototype.sync = function(id){
 Note.prototype.fetch = function(id){
     if(typeof(id) == 'number'){
         this.id = id;
-        $.ajax({
+        return $.ajax({
             url: this.route + this.id,
             type: 'GET',
             dataType: 'json',
@@ -50,7 +50,7 @@ Note.prototype.fetch = function(id){
 };
 
 Note.prototype.create = function(){
-    $.ajax({
+    return $.ajax({
         url: this.route,
         type: 'PUT',
         dataType: 'json',
@@ -68,7 +68,7 @@ Note.prototype.create = function(){
 
 Note.prototype.update = function(){
     if(typeof(this.id) === 'number'){
-        $.ajax({
+        return $.ajax({
             url: this.route + this.id,
             type: 'POST',
             dataType: 'json',
@@ -86,7 +86,7 @@ Note.prototype.update = function(){
 };
 
 Note.prototype.destroy = function(){
-    $.ajax({
+    return $.ajax({
         url: this.route + this.id,
         type: 'DELETE',
         success: function(data, status){
