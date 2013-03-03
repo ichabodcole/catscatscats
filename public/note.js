@@ -29,6 +29,7 @@ Note.prototype.sync = function(id){
 };
 
 Note.prototype.fetch = function(id){
+    var _ref = this;
     if(typeof(id) == 'number'){
         this.id = id;
         return $.ajax({
@@ -38,6 +39,7 @@ Note.prototype.fetch = function(id){
             success: function(data){
                 console.log("GET");
                 console.log(this);
+                _ref.set(data);
             },
             error: function(response, status){
                 console.log(response.responseText);
@@ -50,6 +52,7 @@ Note.prototype.fetch = function(id){
 };
 
 Note.prototype.create = function(){
+    var _ref = this;
     return $.ajax({
         url: this.route,
         type: 'PUT',
@@ -58,6 +61,7 @@ Note.prototype.create = function(){
         success: function(data){
             console.log("PUT");
             console.log(this);
+            _ref.set(data);
         },
         error: function(response, status){
             console.log(responce.responseText);
@@ -76,6 +80,7 @@ Note.prototype.update = function(){
             success: function(data){
                 console.log("POST");
                 console.log(this);
+                _ref.set(data);
             },
             error: function(response, status){
                 console.log(responce.responseText);
