@@ -91,6 +91,7 @@ Note.prototype.update = function(){
 };
 
 Note.prototype.destroy = function(){
+    var _ref = this;
     return $.ajax({
         url: this.route + this.id,
         type: 'DELETE',
